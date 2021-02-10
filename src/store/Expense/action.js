@@ -14,7 +14,16 @@ export const addExpenseData = (data) => ({
   data,
 });
 
+export const editExpenseData = (data) => ({
+  type: types.EDIT_EXPENSE,
+  data,
+});
+
 export const selectedExpense = (data) => ({
   type: types.SELECTED_EXPENSE_TO_DELETE,
   data,
+});
+
+export const clearState = () => ({
+  type: types.CLEAR_EXPENSE_STATE,
 });

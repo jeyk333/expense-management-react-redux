@@ -6,7 +6,7 @@ const Header = ({ classes }) => {
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
-        <Typography variant="h2" align="center">
+        <Typography variant="h3" align="center">
           EXPENSES
         </Typography>
       </Toolbar>

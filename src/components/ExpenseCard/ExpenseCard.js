@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles, Grid, Card, Typography, Tooltip } from "@material-ui/core";
 import { Edit, DeleteOutline } from "@material-ui/icons";
 import { connect } from "react-redux";
+import moment from "moment";
 import { Styles } from "./styles";
 import {
   deleteExpense,
@@ -36,7 +37,7 @@ const ExpenseCard = ({
           Spent<span>₹{spent}</span>
         </Typography>
         <Typography className={classes.detail}>
-          Spent On<span>{spentOn}</span>
+          Spent On<span>{moment(spentOn).format("MMM Do YYYY")}</span>
         </Typography>
         <Typography className={classes.detail}>
           Reference ID<span>{refID}</span>

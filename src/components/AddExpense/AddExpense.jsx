@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Styles } from "./styles";
+import moment from "moment";
 
 const AddExpense = ({
   classes,
@@ -15,7 +16,9 @@ const AddExpense = ({
   expense,
   handleChange,
   handleSubmit,
+  isSubmitted,
 }) => {
+  let today = moment().format("YYYY-MM-DD");
   return (
     <Dialog
       open={open}
@@ -37,11 +40,15 @@ const AddExpense = ({
           placeholder="Spent"
           className={classes.field}
           fullWidth
+          error={isSubmitted && !expense.spent}
+          helperText={
+            isSubmitted && !expense.spent && "Spent value is required"
+          }
         />
         <TextField
           name="spentOn"
           onChange={handleChange}
-          value={expense.spentOn}
+          defaultValue={today}
           type="date"
           variant="outlined"
           label="Spent On"
@@ -50,6 +57,10 @@ const AddExpense = ({
           InputLabelProps={{
             shrink: true,
           }}
+          error={isSubmitted && !expense.spentOn}
+          helperText={
+            isSubmitted && !expense.spentOn && "Spent On value is required"
+          }
         />
         <TextField
           name="refID"
@@ -59,6 +70,10 @@ const AddExpense = ({
           placeholder="Reference ID"
           className={classes.field}
           fullWidth
+          error={isSubmitted && !expense.refID}
+          helperText={
+            isSubmitted && !expense.refID && "Reference ID is required"
+          }
         />
         <TextField
           name="category"
@@ -68,6 +83,10 @@ const AddExpense = ({
           placeholder="Category"
           className={classes.field}
           fullWidth
+          error={isSubmitted && !expense.category}
+          helperText={
+            isSubmitted && !expense.category && "Category value is required"
+          }
         />
         <TextField
           name="paymentMode"
@@ -77,6 +96,12 @@ const AddExpense = ({
           placeholder="Payment Mode"
           className={classes.field}
           fullWidth
+          error={isSubmitted && !expense.paymentMode}
+          helperText={
+            isSubmitted &&
+            !expense.paymentMode &&
+            "Payment Mode value is required"
+          }
         />
         <Button onClick={onToggle}>Cancel</Button>
         <Button onClick={handleSubmit} variant="contained" color="primary">

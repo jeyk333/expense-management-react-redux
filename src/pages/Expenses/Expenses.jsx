@@ -5,7 +5,12 @@ import { uuid } from "uuidv4";
 import { Styles } from "./styles";
 import Header from "../../components/Header";
 import ExpenseCard from "../../components/ExpenseCard";
-import { toggleAddExpense, addExpenseData } from "../../store/Expense/action";
+import {
+  toggleAddExpense,
+  addExpenseData,
+  editExpenseData,
+  clearState,
+} from "../../store/Expense/action";
 import AddExpense from "../../components/AddExpense";
 
 const Expenses = ({
@@ -15,14 +20,17 @@ const Expenses = ({
   isAddExpenseOpen,
   addExpenseData,
   selectedExpense,
+  editExpenseData,
+  clearState,
 }) => {
   const [Expense, setExpense] = useState({
     spent: "",
-    spentOn: new Date(),
+    spentOn: "",
     refID: "",
     category: "",
     paymentMode: "",
   });
+  const [IsSubmitted, setIsSubmitted] = useState(false);
 
   //To handle the changes occuring in the form fields
   const handleChange = (e) => {
@@ -31,12 +39,24 @@ const Expenses = ({
 
   //To handle the submitted form data
   const handleSubmit = () => {
-    let data = {
-      id: selectedExpense ? selectedExpense.id : uuid(),
-      ...Expense,
-    };
-    addExpenseData(data);
-    toggleAddExpense();
+    let expenses = Object.values(Expense);
+    if (expenses.every((expense) => expense)) {
+      if (selectedExpense) {
+        let data = {
+          id: selectedExpense.id,
+          ...Expense,
+        };
+        editExpenseData(data);
+      } else {
+        let data = {
+          id: uuid(),
+          ...Expense,
+        };
+        addExpenseData(data);
+      }
+      toggleAddExpense();
+    }
+    setIsSubmitted(true);
   };
 
   //To update the state with selected expense data
@@ -56,6 +76,8 @@ const Expenses = ({
         category: "",
         paymentMode: "",
       });
+      clearState();
+      setIsSubmitted(false);
     }
   }, [isAddExpenseOpen]);
 
@@ -63,7 +85,6 @@ const Expenses = ({
   let filteresExpenses =
     expenses &&
     expenses.sort((a, b) => new Date(a.spentOn) - new Date(b.spentOn));
-
   return (
     <div>
       <Header />
@@ -95,6 +116,7 @@ const Expenses = ({
         handleChange={handleChange}
         expense={Expense}
         handleSubmit={handleSubmit}
+        isSubmitted={IsSubmitted}
       />
     </div>
   );
@@ -109,6 +131,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   toggleAddExpense: () => dispatch(toggleAddExpense()),
   addExpenseData: (data) => dispatch(addExpenseData(data)),
+  editExpenseData: (data) => dispatch(editExpenseData(data)),
+  clearState: () => dispatch(clearState()),
 });
 
 export default connect(
