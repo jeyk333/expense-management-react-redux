@@ -10,8 +10,8 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
-const store = createStore(persistedReducer, compose(applyMiddleware(thunk)));
+const store = createStore(persistedReducer, compose(applyMiddleware(thunk))); // Applying Root Reducer and Middlewares to the store
 
-let persistor = persistStore(store);
+let persistor = persistStore(store); // Peristor for Local Storage
 
 export { store, persistor };

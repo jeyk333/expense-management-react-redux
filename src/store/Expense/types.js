@@ -1,3 +1,4 @@
+//action types
 export const types = {
   GET_EXPENSES: "GET_EXPENSES",
   DELETE_EXPENSE: "DELETE_EXPENSE",

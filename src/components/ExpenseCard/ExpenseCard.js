@@ -17,7 +17,9 @@ const ExpenseCard = ({
   selectedExpense,
   toggleAddExpense,
 }) => {
-  const { spent, spentOn, refID, category, paymentMode, id } = expense;
+  const { spent, spentOn, refID, category, paymentMode, id } = expense; //destructuring expense values
+
+  //To handle edit function
   const handleEdit = (data) => {
     toggleAddExpense();
     selectedExpense(data);

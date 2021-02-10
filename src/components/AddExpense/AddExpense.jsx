@@ -18,7 +18,7 @@ const AddExpense = ({
   handleSubmit,
   isSubmitted,
 }) => {
-  let today = moment().format("YYYY-MM-DD");
+  let today = moment().format("YYYY-MM-DD"); //To get today's date
   return (
     <Dialog
       open={open}
